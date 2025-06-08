@@ -1,79 +1,36 @@
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <title>محوّل الصوتيات الجماعي</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to right, #ece9e6, #ffffff);
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        h2 {
-            margin-top: 40px;
-            color: #333;
-        }
-        form {
-            background: #fff;
-            margin: 40px auto;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
-            width: 90%;
-            max-width: 600px;
-        }
-        input[type="file"],
-        select,
-        button {
-            width: 90%;
-            padding: 12px;
-            margin: 12px 0;
-            font-size: 1rem;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-        }
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            font-size: 1.1rem;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-        small {
-            color: gray;
-            font-size: 0.85rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>محول الصوتيات</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f0f0; text-align: center; padding: 40px;}
+    .box { background: white; max-width: 500px; margin: auto; padding: 30px; border-radius: 10px;
+           box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    input, select, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
+    button { background: #28a745; color: white; font-size: 16px; border: none; cursor: pointer; }
+    button:hover { background: #218838; }
+    a { display: block; margin: 10px 0; color: #007bff; text-decoration: none; }
+    a:hover { color: #0056b3; }
+  </style>
 </head>
 <body>
-    <h2>🎶 محوّل الصوتيات الجماعي</h2>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="audiofile" accept="audio/*,video/*" multiple required>
-        <small>يمكنك رفع حتى 200 ملف صوتي</small><br>
-
-        <label>اختر الصيغة:</label><br>
-        <select name="format">
-            <option value="mp3">MP3</option>
-            <option value="wav">WAV</option>
-            <option value="ogg">OGG</option>
-            <option value="flac">FLAC</option>
-            <option value="aac">AAC</option>
-        </select><br>
-
-        <label>اختر الجودة:</label><br>
-        <select name="bitrate">
-            <option value="128k">128 kbps</option>
-            <option value="192k" selected>192 kbps</option>
-            <option value="256k">256 kbps</option>
-            <option value="320k">320 kbps</option>
-        </select><br>
-
-        <button type="submit">🔄 حوّل الملفات</button>
+  <div class="box">
+    <h2>🎵 محول الصوتيات</h2>
+    <form id="uploadForm">
+      <input type="file" id="file" name="file" accept="audio/*" required>
+      <select id="bitrate" name="bitrate">
+        <option value="128k">128 kbps</option>
+        <option value="192k" selected>192 kbps</option>
+        <option value="256k">256 kbps</option>
+        <option value="320k">320 kbps</option>
+      </select>
+      <button type="submit">رفع وتحويل</button>
     </form>
+    <div id="status"></div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
