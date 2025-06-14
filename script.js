@@ -1,60 +1,35 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('upload-form');
-    const fileInput = document.getElementById('file');
-    const bitrateSelect = document.getElementById('bitrate');
-    const status = document.getElementById('status');
+document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-    form.addEventListener('submit', async function (e) {
-        e.preventDefault();
+    const fileInput = document.getElementById('audioFile');
+    const bitrate = document.getElementById('bitrate').value;
 
-        const file = fileInput.files[0];
-        const bitrate = bitrateSelect.value;
+    if (fileInput.files.length === 0) {
+        alert('من فضلك اختر ملف صوتي');
+        return;
+    }
 
-        if (!file) {
-            status.innerHTML = '<span style="color:red;">❌ لم يتم اختيار ملف.</span>';
-            return;
+    const formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+    formData.append('bitrate', bitrate); // إرسال البت ريت للباك اند
+
+    fetch('https://mano3322.eu.pythonanywhere.com/convert', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert('حدث خطأ: ' + data.error);
+        } else {
+            const downloadLink = document.getElementById('downloadLink');
+            downloadLink.href = data.converted_file;
+            downloadLink.style.display = 'block';
+            downloadLink.textContent = 'تحميل الملف المحول';
         }
-
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('bitrate', bitrate);
-
-        try {
-            const response = await fetch('https://mano3322.eu.pythonanywhere.com/convert', {
-                method: 'POST',
-                body: formData
-            });
-
-            const data = await response.json();
-
-            if (data.error) {
-                status.innerHTML = `<span style="color:red;">❌ ${data.error}</span>`;
-                return;
-            }
-
-            status.innerHTML = '';
-
-            if (data.files) {
-                data.files.forEach(url => {
-                    const link = document.createElement('a');
-                    link.href = 'https://mano3322.eu.pythonanywhere.com/' + url;
-                    link.innerText = '🔉 تحميل الملف';
-                    link.target = '_blank';
-                    status.appendChild(link);
-                });
-            }
-
-            if (data.zip) {
-                const zipLink = document.createElement('a');
-                zipLink.href = 'https://mano3322.eu.pythonanywhere.com/' + data.zip;
-                zipLink.innerText = '📦 تحميل جميع الملفات';
-                zipLink.target = '_blank';
-                status.appendChild(zipLink);
-            }
-
-        } catch (error) {
-            console.error(error);
-            status.innerHTML = '<span style="color:red;">❌ فشل الاتصال بالسيرفر.</span>';
-        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('حدث خطأ أثناء رفع الملف.');
     });
 });

@@ -1,36 +1,35 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>محول الصوتيات</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f0f0f0; text-align: center; padding: 40px;}
-    .box { background: white; max-width: 500px; margin: auto; padding: 30px; border-radius: 10px;
-           box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-    input, select, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
-    button { background: #28a745; color: white; font-size: 16px; border: none; cursor: pointer; }
-    button:hover { background: #218838; }
-    a { display: block; margin: 10px 0; color: #007bff; text-decoration: none; }
-    a:hover { color: #0056b3; }
-  </style>
+    <meta charset="UTF-8">
+    <title>محول الصوتيات</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
-  <div class="box">
-    <h2>🎵 محول الصوتيات</h2>
-    <form id="uploadForm">
-      <input type="file" id="file" name="file" accept="audio/*" required>
-      <select id="bitrate" name="bitrate">
-        <option value="128k">128 kbps</option>
-        <option value="192k" selected>192 kbps</option>
-        <option value="256k">256 kbps</option>
-        <option value="320k">320 kbps</option>
-      </select>
-      <button type="submit">رفع وتحويل</button>
-    </form>
-    <div id="status"></div>
-  </div>
 
-  <script src="script.js"></script>
+    <h2>🎵 محول الصوتيات 🎵</h2>
+
+    <form id="uploadForm">
+        <input type="file" id="audioFile" name="file" accept="audio/*" required><br><br>
+        <select id="bitrate" name="bitrate">
+            <option value="128k">128 kbps</option>
+            <option value="192k">192 kbps</option>
+            <option value="256k">256 kbps</option>
+            <option value="320k">320 kbps</option>
+        </select><br><br>
+        <button type="submit">رفع وتحويل</button>
+    </form>
+
+    <br>
+    <a id="downloadLink" style="display:none;" target="_blank">تحميل الملف المحول</a>
+
+    <script src="script.js"></script>
+
 </body>
 </html>
