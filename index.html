@@ -2,34 +2,36 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>محول الصوتيات</title>
+    <title>محول الصوتيات مع نسبة التحويل</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
+        body { font-family: Arial; text-align: center; padding: 20px; }
+        progress { width: 300px; }
     </style>
 </head>
 <body>
 
-    <h2>🎵 محول الصوتيات 🎵</h2>
+<h2>🎵 محول الصوتيات 🎵</h2>
 
-    <form id="uploadForm">
-        <input type="file" id="audioFile" name="file" accept="audio/*" required><br><br>
-        <select id="bitrate" name="bitrate">
-            <option value="128k">128 kbps</option>
-            <option value="192k">192 kbps</option>
-            <option value="256k">256 kbps</option>
-            <option value="320k">320 kbps</option>
-        </select><br><br>
-        <button type="submit">رفع وتحويل</button>
-    </form>
+<form id="uploadForm">
+    <input type="file" id="audioFiles" name="files" accept="audio/*" multiple required><br><br>
+    <select id="bitrate" name="bitrate">
+        <option value="128k">128 kbps</option>
+        <option value="192k" selected>192 kbps</option>
+        <option value="256k">256 kbps</option>
+        <option value="320k">320 kbps</option>
+    </select><br><br>
+    <button type="submit">رفع وتحويل</button>
+</form>
 
-    <br>
-    <a id="downloadLink" style="display:none;" target="_blank">تحميل الملف المحول</a>
+<br>
+<progress id="uploadProgress" value="0" max="100" style="display:none;"></progress>
+<p id="uploadText"></p>
 
-    <script src="script.js"></script>
+<progress id="convertProgress" value="0" max="100" style="display:none;"></progress>
+<p id="convertText"></p>
 
+<div id="result"></div>
+
+<script src="script.js"></script>
 </body>
 </html>
